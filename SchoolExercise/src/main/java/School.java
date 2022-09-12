@@ -5,12 +5,12 @@ import java.util.Iterator;
 public class School {
 
     private String name;
-    private HashSet students;
+    private HashSet<Student> students;
 
     public School(String name) {
         this.name = name;
+        this.students = new HashSet<Student>();
     }
-
     public String getName() {
         return name;
     }

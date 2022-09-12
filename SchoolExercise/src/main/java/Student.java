@@ -8,13 +8,13 @@ public class Student {
     private String name;
     private int number;
     private LocalDate birthDate;
-    private HashSet subjects;
+    private HashSet<Subject> subjects;
 
     public Student(String name, int number, LocalDate birthDate) {
         this.name = name;
         this.number = number;
         this.birthDate = birthDate;
-        this.subjects = new HashSet();
+        this.subjects = new HashSet<>();
     }
 
     public String getName() {
@@ -49,17 +49,29 @@ public class Student {
         this.subjects = subjects;
     }
 
+    public Subject getSubject(String name) {
+        Iterator<Subject> it = this.subjects.iterator();
+
+        while (it.hasNext()) {
+            Subject sub = it.next();
+            if (sub.getName().equals(name)){
+                return sub;
+            }
+        }
+        return null;
+    }
     public void followSubject(Subject sub) {
         this.subjects.add(sub);
     }
 
     public void addGrade(float grade, Subject subject) {
         Subject sub = findSubjectIfPresent(subject);
+
         if (!sub.equals(null)) {
             sub.setGrade(grade);
+        }else{
+            sub.setGrade(0);
         }
-        
-        sub.setGrade(0);
     }
 
 
@@ -68,7 +80,7 @@ public class Student {
             Iterator<Subject> it = this.subjects.iterator();
             while (it.hasNext()) {
                 Subject sub = it.next();
-                if (sub.equals(subject)) {
+                if (sub.getName().equals(subject.getName())) {
                     return sub;
                 }
             }
